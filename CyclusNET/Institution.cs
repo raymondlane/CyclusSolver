@@ -1,5 +1,7 @@
 using System;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using CyclusNET.Institutions;
 
 namespace CyclusNET
 {
@@ -26,7 +28,10 @@ namespace CyclusNET
             InitialFacilityList.EntryList[5] = new Entry("separations", 1);
             InitialFacilityList.EntryList[6] = new Entry("enrichment", 1);
             Config = new InstitutionConfig();
-            Config.NullRegion = null;
+            Config.DeployInst = new Institutions.DeployInst
+            { Prototypes = new DeployInst.Prototype("reactor", "reactor", "reactor", "reactor"), 
+                Build_Times = new DeployInst.Build_Time(5, 10, 15, 20), N_Build = new DeployInst.NBuild(3, 4, 5, 6)
+            };
         }
 
         #endregion
@@ -133,8 +138,11 @@ namespace CyclusNET
 
         #region Properties
 
-        [JsonProperty("NullInst", NullValueHandling = NullValueHandling.Include)]
+        [JsonProperty("NullInst", NullValueHandling = NullValueHandling.Include, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CyclusNET.Institutions.NullInstitution NullRegion { get; set;}
+
+        [JsonProperty("DeployInst", NullValueHandling = NullValueHandling.Ignore)]
+        public Institutions.DeployInst DeployInst { get; set; }
 
         #endregion
     }

@@ -38,7 +38,7 @@ namespace CyclusNET
 
         public static Archetypes GetArchetypes()
         {
-            var s = new CyclusNET.Spec[8];
+            var s = new CyclusNET.Spec[9];
             s[0] = new CyclusNET.Spec { Lib = "agents", Name = "NullInst" };
             s[1] = new CyclusNET.Spec { Lib = "agents", Name = "NullRegion" };
             s[2] = new CyclusNET.Spec { Lib = "cycamore", Name = "Source" };
@@ -47,6 +47,7 @@ namespace CyclusNET
             s[5] = new CyclusNET.Spec { Lib = "cycamore", Name = "Reactor" };
             s[6] = new CyclusNET.Spec { Lib = "cycamore", Name = "FuelFab" };
             s[7] = new CyclusNET.Spec { Lib = "cycamore", Name = "Separations" };
+            s[8] = new CyclusNET.Spec { Lib = "cycamore", Name = "DeployInst" };
             var a = new Archetypes();
             a.Spec = s;
             return a;

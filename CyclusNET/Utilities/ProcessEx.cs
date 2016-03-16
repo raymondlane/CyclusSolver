@@ -19,6 +19,7 @@ namespace CyclusNET.Utilities
             processStartInfo.UseShellExecute = false;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.RedirectStandardError = true;
+            var startTime = DateTime.Now;
 
             var tcs = new TaskCompletionSource<ProcessResults>();
 
@@ -48,7 +49,7 @@ namespace CyclusNET.Utilities
                 }
             };
 
-            process.Exited += (sender, args) => tcs.TrySetResult(new ProcessResults(process, standardOutput.ToArray(), standardError.ToArray()));
+            process.Exited += (sender, args) => tcs.TrySetResult(new ProcessResults(process, standardOutput.ToArray(), standardError.ToArray(), startTime, DateTime.Now));
 
             cancellationToken.Register(() =>
                                        {
@@ -58,15 +59,18 @@ namespace CyclusNET.Utilities
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (process.Start() == false)
+
+
+            if (!process.Start())
             {
                 tcs.TrySetException(new InvalidOperationException("Failed to start process"));
             }
 
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+            var result = tcs.Task;
 
-            return tcs.Task;
+            return result;
         }
     }
 }

@@ -73,6 +73,8 @@ namespace CyclusNET
         [JsonProperty("NullRegion", NullValueHandling = NullValueHandling.Include)]
         public CyclusNET.Regions.NullRegion NullRegion { get; set;}
 
+
+
         #endregion
     }
 }
